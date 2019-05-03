@@ -1,23 +1,24 @@
 package sort.controller;
 
+import javafx.application.*;
+import sort.view.*;
+import sort.model.*;
+
+
 public class SortController
 {
-
+	private SortStage stage;
+	private Sorter sorter;
+	
 	public SortController()
 	{
-		// TODO Auto-generated constructor stub
+		stage = new SortStage();
+		sorter = new Sorter();
 	}
 
-	public void start()
-	{
-		
-	}
 	
 	public static void main(String[] args)
 	{
-		SortController controller = new SortController();
-		controller.start();
-
+		
 	}
-
 }
