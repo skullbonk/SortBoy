@@ -8,12 +8,19 @@ public class Sorter
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Sorter(String sort)
+	public Sorter(String[] toSort)
 	{
-		switch(sort)
-		{
 		
-		}
 	}
 
+	public void stringSort(String flavor)
+	{
+		
+	}
+	
+	public void sortAlphabetical(String[] toSort)
+	{
+		
+	}
+	
 }
