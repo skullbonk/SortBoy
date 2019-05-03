@@ -19,6 +19,6 @@ public class SortController
 	
 	public static void main(String[] args)
 	{
-		
+		SortStage.main(args);
 	}
 }

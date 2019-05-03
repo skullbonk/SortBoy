@@ -7,5 +7,13 @@ public class Sorter
 	{
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Sorter(String sort)
+	{
+		switch(sort)
+		{
+		
+		}
+	}
 
 }
