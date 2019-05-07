@@ -7,11 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.*;
 
 
 public class SortStage extends Application implements EventHandler<ActionEvent>
 {
+	FileChooser files = new FileChooser();
+	
 	Button saveButton;
 	Button loadButton;
 	Button sortButton;
@@ -43,33 +46,38 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 		loadButton.setText("Load");
 		sortButton.setText("Sort");
 		
-		saveButton.setOnAction(this);
-		loadButton.setOnAction(this);
-		sortButton.setOnAction(this);
+		saveButton.setOnAction(e -> files.showSaveDialog(primaryStage));
+		loadButton.setOnAction(e -> files.showOpenDialog(primaryStage));
+		sortButton.setOnAction(e -> sort(primaryStage, getChoice(algoBox)));
 		
 //		data entry
-		typeBox = new ChoiceBox<String>();
-		sortByBox = new ChoiceBox<String>();
-		entryField = new TextField();
-		algoBox = new ChoiceBox<String>();
+		typeBox = new ChoiceBox<String>(); // where you select the type of data
+		sortByBox = new ChoiceBox<String>(); // where you select how you want it sorted
+		entryField = new TextField(); // where you enter the data
+		algoBox = new ChoiceBox<String>(); // where you choose the sorting algorithm to use
 		
 		typeBox.getItems().addAll("Integer", "String", "Double");
 		typeBox.getSelectionModel().select(0);
 		
+		sortByBox.getItems().addAll(getSortBy(getChoice(typeBox)));
 		
-		
+		algoBox.getItems().addAll("Quicksort", "Merge sort", "Insertion sort", "Heapsort");
+		algoBox.getSelectionModel().select(0);
 		
 //		utility stuff
-		StackPane layout = new StackPane();
+		VBox layout = new VBox();
 		layout.getChildren().add(saveButton);
 		layout.getChildren().add(loadButton);
 		layout.getChildren().add(typeBox);
 		layout.getChildren().add(entryField);
 		layout.getChildren().add(algoBox);
+		layout.getChildren().add(sortButton);
 		
-		Scene scene = new Scene(layout, 1244, 720);
-		primaryStage.setScene(scene); // assigns this scene to the stage (window)
+		Scene scene1 = new Scene(layout, 1244, 720);
+		primaryStage.setScene(scene1); // assigns this scene to the stage (window)
 		primaryStage.show(); // displays to user	
+		
+
 	}
 	
 	
@@ -77,16 +85,6 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 	public void handle(ActionEvent event)
 	{
 		String source = event.getSource().toString();
-
-		switch(source)
-		{
-		case "saveButton":
-			
-			break;
-		case "loadButton":
-			
-			break;
-		}
 	}
 	
 	
@@ -99,21 +97,45 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 	
 	private String[] getSortBy(String type)
 	{
+		String[] stringSorts = {"Alphabetical", "Length"};
+		String[] intSorts = {"Greatest -> Least", "Least -> Greatest"};
+		String[] doubleSorts = {"Greatest -> Least", "Least -> Greatest"};
+		String[] sortBy = {""};
+
 		switch(type)
 		{
 		case "String":
-			String[] sortBy = {"Alphabetical", "Length"};
-			return sortBy;
+			sortBy = stringSorts;
 			break;
 		case "Integer":
-			
+			sortBy = intSorts;
 			break;
 		case "Double":
-			
+			sortBy = doubleSorts;
 			break;
 		}
+		return sortBy;
 	}
 	
+	
+	private void sort(Stage primaryStage, String algorithm)
+	{
+		VBox layout = new VBox();
+		
+		Scene scene2 = new Scene(layout, 1244, 720);
+		primaryStage.setScene(scene2);
+	}
+	
+	private void load()
+	{
+		
+	}
+	
+	
+	private void save()
+	{
+		
+	}
 	
 	public static void main(String[] args)
 	{
