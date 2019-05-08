@@ -3,15 +3,21 @@ package sort.view;
 import javafx.application.*;
 import javafx.collections.FXCollections;
 import javafx.event.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
+
+import sort.controller.SortController;
 
 
 public class SortStage extends Application implements EventHandler<ActionEvent>
@@ -19,47 +25,42 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 	Stage window;
 	FileChooser files = new FileChooser();
 	
-	VBox layout1;
-	VBox layout2;
+//	AnchorPane layout1;
+//	AnchorPane layout2;
 	
-	Scene scene1;
-	Scene scene2;
+	TabPane tabs;
+	
+	Scene scene;
 	
 	Canvas sortCanvas;
 	
-	
-	public SortStage()
-	{
-		super();
-		layout1 = new VBox();
-		layout2 = new VBox();
-		scene1 = new Scene(layout1, 1244, 720);
-		scene2 = new Scene(layout2, 1244, 720);
-	}
+	AnchorPane layout1;
+	AnchorPane layout2;
 	
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
+		Parent root = FXMLLoader.load(getClass().getResource("SortBot.fxml"));
 		window = primaryStage;
-		setupStage(window);
-	}
-	
-	
-	public void setupStage(Stage window)
-	{
-		setupScene1(layout1);
-		setupScene2(layout2);
-		window.setScene(scene1);
-		window.setTitle("Setup");
+		window.setTitle("SortBoy");
+		window.setScene(new Scene(root, 800, 600));
 		window.show();
 	}
 	
 	
-	public void setupScene1(VBox layout1) // for setting up sort
+	public SortStage()
 	{
+		super();
+	}
+	
+	
+	// SETUP
+	public Tab setupTab1(AnchorPane layout1) // for setting up sort
+	{
+		Tab tab1 = new Tab("Setup");
 		Button sortSceneButton = new Button("To sort page");
-		sortSceneButton.setOnAction(e -> {window.setScene(scene2); window.setTitle("Sort");});
+		sortSceneButton.setOnAction(e -> {/*set tab to tab2 (sort)*/;});
 		
 		ChoiceBox<String> dataTypeBox = new ChoiceBox<String>();
 		dataTypeBox.setItems(FXCollections.observableArrayList(
@@ -70,22 +71,21 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 		
 		layout1.getChildren().addAll(sortSceneButton, enterDataLabel, entryField);
 		
+		return tab1;
 	}
 	
-	
-	public void setupScene2(VBox layout2)
+	// SORT
+	public Tab setupTab2(AnchorPane layout2)
 	{
+		Tab tab2 = new Tab("Sort");
 		Button setupSceneButton = new Button("To setup page");
-		setupSceneButton.setOnAction(e -> {window.setScene(scene1); window.setTitle("Setup");});
+		setupSceneButton.setOnAction(e -> {/*set tab to tab1 (setup)*/;});
 		
 		sortCanvas = new Canvas(800, 600);		
 		layout2.getChildren().addAll(setupSceneButton, sortCanvas);
 		
-		
+		return tab2;
 	}
-	
-	
-	
 	
 	
 	@Override
@@ -95,11 +95,12 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 	}
 	
 	
-	private String getChoice(ChoiceBox<String> box)
+	private String getSelection(ChoiceBox<String> box)
 	{
 		String selection = box.getValue();
 		return selection;
 	}
+	
 	
 	
 
