@@ -82,14 +82,21 @@ public class SortController extends Application
 			String text = "";
 			FileChooser fileChooser = new FileChooser();
 			File textFile = fileChooser.showOpenDialog(stage);
+			String extension = textFile.toString();
+			extension = extension.substring(extension.lastIndexOf("."));
 			Scanner fileScanner = new Scanner(textFile);
+			assert extension.equals("txt");
 			text = fileScanner.toString();
 			entryField.setText(text);
 		}
 		
 		catch(FileNotFoundException exception)
 		{
-			entryField.setText("error loading file");
+			entryField.setText("error loading file: file not found");
+		}
+		catch(AssertionError assertionError)
+		{
+			entryField.setText("error loading file: not a text file");
 		}
 	}
 	
