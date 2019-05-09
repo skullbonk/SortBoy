@@ -8,19 +8,8 @@ public class Sorter
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Sorter(String[] toSort)
+	public Sorter(String toSort)
 	{
 		
 	}
-
-	public void stringSort(String flavor)
-	{
-		
-	}
-	
-	public void sortAlphabetical(String[] toSort)
-	{
-		
-	}
-	
 }

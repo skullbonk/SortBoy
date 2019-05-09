@@ -6,19 +6,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sort.controller.SortController">
+<fx:root maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="400.0" type="TabPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sort.controller.SortController">
   <tabs>
     <Tab text="Setup">
       <content>
         <AnchorPane>
                <children>
-                  <Button layoutX="659.0" layoutY="523.0" minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Sort!" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="659.0" AnchorPane.rightAnchor="16.0">
+                  <Button layoutX="659.0" layoutY="523.0" minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#submitForSort" prefHeight="30.0" prefWidth="125.0" text="Sort!" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="659.0" AnchorPane.rightAnchor="16.0">
                      <font>
                         <Font name="Futura Medium" size="15.0" />
                      </font>
                   </Button>
                   <ChoiceBox layoutX="14.0" layoutY="523.0" minHeight="30.0" prefHeight="30.0" prefWidth="635.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="523.0" />
-                  <TextField fx:id="entryField" alignment="TOP_LEFT" layoutX="14.0" layoutY="63.0" onAction="#submitForSort" prefHeight="445.0" prefWidth="770.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="64.0" />
+                  <TextField fx:id="entryField" alignment="TOP_LEFT" layoutX="14.0" layoutY="63.0" prefHeight="445.0" prefWidth="770.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="64.0" />
                   <Button layoutX="558.0" layoutY="19.0" mnemonicParsing="false" text="Load" textAlignment="CENTER" />
                   <Label layoutX="14.0" layoutY="21.0" text="Enter values here, separated by commas. Enclose in quotes for text." wrapText="true">
                      <font>
@@ -34,4 +34,4 @@
       </content>
     </Tab>
   </tabs>
-</TabPane>
+</fx:root>

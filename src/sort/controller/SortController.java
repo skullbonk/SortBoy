@@ -1,70 +1,89 @@
 package sort.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
 import javafx.application.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import sort.view.*;
 import sort.model.*;
 
 
-public class SortController
+public class SortController extends Application
 {
-	private static final int INTEGER = 1;
-	private static final int DOUBLE = 2;
-	private static final int STRING = 3;
-	
-	private SortStage stage;
+	private Stage stage;
+	private TabPane tabs;
 	private Sorter sorter;
+	@FXML private Label enterDataLabel;
 	@FXML private TextField entryField;
+	@FXML private Button sortButton;
+	@FXML private Button loadButton;
+	@FXML private ChoiceBox algoBox;
+	@FXML private Tab setupTab;
+	@FXML private Tab sortTab;
 	
 	public SortController()
 	{
-		stage = new SortStage();
+		super();
+		tabs = new TabPane();
 		sorter = new Sorter();
 	}
 
 	
+	@Override
+	public void start(Stage primaryStage) throws Exception
+	{
+		FXMLLoader fxml = new FXMLLoader();
+		FileInputStream fxmlStream = new FileInputStream("src/sort/view/SortBoy.fxml");
+		fxml.setRoot(tabs);
+		tabs = (TabPane) fxml.load(fxmlStream);
+		stage = primaryStage;
+		stage.setTitle("SortBoy");
+		stage.setScene(new Scene(tabs, 800, 600));
+		stage.show();
+	}
+	
+	
 	@FXML
-	private void handleSortButtonAction(ActionEvent event)
+	private void handleLoadButtonAction(ActionEvent event)
 	{
-		submitForSort(entryField.getText());
+		
 	}
 	
-	private void submitForSort(String data)
+	private void load()
 	{
-		int dataType;
-		if(data.contains("\""))
+		try 
 		{
-			dataType = STRING;
-		}
-		else if(data.contains("."))
-		{
-			dataType = DOUBLE;
-		}
-		else
-		{
-			dataType = INTEGER;
+			String text = "";
+			FileChooser fileChooser = new FileChooser();
+			File textFile = fileChooser.showOpenDialog(stage);
+			Scanner fileScanner = new Scanner(textFile);
+			text = fileScanner.toString();
+			entryField.setText(text);
 		}
 		
-		
-		switch(dataType)
+		catch(FileNotFoundException exception)
 		{
-		case STRING:
-			
-			break;
-		case DOUBLE:
-			
-			break;
-		case INTEGER:
-			
-			break;
+			entryField.setText("error loading file");
 		}
 	}
-	
 	
 	public static void main(String[] args)
 	{
-		SortStage.main(args);
+		Application.launch(args);
 	}
 }

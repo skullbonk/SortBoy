@@ -1,5 +1,8 @@
 package sort.view;
 
+import java.io.FileInputStream;
+import java.net.URL;
+
 import javafx.application.*;
 import javafx.collections.FXCollections;
 import javafx.event.*;
@@ -28,7 +31,7 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 //	AnchorPane layout1;
 //	AnchorPane layout2;
 	
-	TabPane tabs;
+//	TabPane tabs;
 	
 	Scene scene;
 	
@@ -41,10 +44,12 @@ public class SortStage extends Application implements EventHandler<ActionEvent>
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-		Parent root = FXMLLoader.load(getClass().getResource("SortBot.fxml"));
+		FXMLLoader fxml = new FXMLLoader();
+		FileInputStream fxmlStream = new FileInputStream("src/SortBoy.fxml");
+		TabPane tabs = (TabPane) fxml.load(fxmlStream);
 		window = primaryStage;
 		window.setTitle("SortBoy");
-		window.setScene(new Scene(root, 800, 600));
+		window.setScene(new Scene(tabs, 800, 600));
 		window.show();
 	}
 	
