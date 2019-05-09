@@ -28,13 +28,13 @@ public class SortController extends Application
 	private Stage stage;
 	private TabPane tabs;
 	private Sorter sorter;
+	@FXML private Tab setupTab;
+	@FXML private Tab sortTab;
 	@FXML private Label enterDataLabel;
 	@FXML private TextField entryField;
 	@FXML private Button sortButton;
 	@FXML private Button loadButton;
 	@FXML private ChoiceBox algoBox;
-	@FXML private Tab setupTab;
-	@FXML private Tab sortTab;
 	
 	public SortController()
 	{
@@ -58,13 +58,24 @@ public class SortController extends Application
 	}
 	
 	
+//	@FXML
+//	private void handleLoadButtonAction(ActionEvent event)
+//	{
+//		loadData();
+//	}
+
 	@FXML
-	private void handleLoadButtonAction(ActionEvent event)
+	private void initialize()
 	{
+		loadButton.setOnAction((event) -> {
+			loadData();
+		});
 		
 	}
 	
-	private void load()
+	
+	
+	private void loadData()
 	{
 		try 
 		{
@@ -81,6 +92,7 @@ public class SortController extends Application
 			entryField.setText("error loading file");
 		}
 	}
+	
 	
 	public static void main(String[] args)
 	{
