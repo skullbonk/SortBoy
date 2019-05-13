@@ -98,7 +98,7 @@ public class SortController extends Application
 		}
 		else
 		{
-			sorter.injectData(entryField.getText());
+			sorter.injectData(canvas, entryField.getText());
 			System.out.println(entryField.getText());
 		}
 	}
