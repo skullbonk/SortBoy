@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -42,12 +43,13 @@ public class SortController extends Application
 	@FXML private Button sortButton;
 	@FXML private Button loadButton;
 	@FXML private ChoiceBox<String> algoBox;
+	@FXML public Canvas canvas;
 	
 	public SortController()
 	{
 		super();
 		tabs = new TabPane();
-		sorter = new Sorter();
+		sorter = new Sorter(canvas);
 	}
 
 	
@@ -92,7 +94,7 @@ public class SortController extends Application
 	{
 		if(sorter == null)
 		{
-			sorter = new Sorter(entryField.getText());
+			sorter = new Sorter(canvas, entryField.getText());
 		}
 		else
 		{
