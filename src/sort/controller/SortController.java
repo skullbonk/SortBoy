@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import javafx.application.*;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sort.view.*;
@@ -42,6 +44,7 @@ public class SortController extends Application
 	@FXML private TextField entryField;
 	@FXML private Button sortButton;
 	@FXML private Button loadButton;
+	@FXML private ChoiceBox<String> typeBox;
 	@FXML private ChoiceBox<String> algoBox;
 	@FXML public Canvas canvas;
 	
@@ -78,6 +81,10 @@ public class SortController extends Application
 	@FXML
 	private void initialize()
 	{
+		typeBox.setItems(FXCollections.observableArrayList(
+				"string", "integer", "double", "character"));
+		typeBox.setTooltip(new Tooltip("The type of data to sort"));
+		
 		loadButton.setOnAction((event) -> {
 			loadData();
 		});
@@ -92,21 +99,29 @@ public class SortController extends Application
 	
 	private void submitSort()
 	{
-		if(!entryField.getText().isEmpty())
-		{
-			if(sorter == null)
+		String type = typeBox.getSelectionModel().getSelectedItem();
+		if(!type.equals(""))
+		{			
+			if(!entryField.getText().isEmpty())
 			{
-				sorter = new Sorter(canvas, entryField.getText());
+				if(sorter == null)
+				{
+					sorter = new Sorter(canvas, type, entryField.getText());
+				}
+				else
+				{
+					sorter.injectData(canvas, type, entryField.getText());
+//				System.out.println(entryField.getText());
+				}
 			}
 			else
 			{
-				sorter.injectData(canvas, entryField.getText());
-				System.out.println(entryField.getText());
+				entryField.setText("No values to submit");
 			}
 		}
 		else
 		{
-			entryField.setText("No values to submit");
+			
 		}
 	}
 	

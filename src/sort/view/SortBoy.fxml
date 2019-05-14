@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.*?>
@@ -13,19 +14,19 @@
       <content>
         <AnchorPane>
                <children>
-                  <Button fx:id="sortButton" layoutX="659.0" layoutY="523.0" minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Statisticitize!" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="659.0" AnchorPane.rightAnchor="16.0">
+                  <Button fx:id="sortButton" layoutX="659.0" layoutY="523.0" mnemonicParsing="false" prefHeight="30.0" text="Statisticitize!" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                      <font>
                         <Font name="Futura Medium" size="15.0" />
                      </font>
                   </Button>
-                  <ChoiceBox fx:id="algoBox" layoutX="14.0" layoutY="523.0" minHeight="30.0" prefHeight="30.0" prefWidth="635.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="523.0" />
                   <TextField fx:id="entryField" alignment="TOP_LEFT" layoutX="14.0" layoutY="63.0" prefHeight="445.0" prefWidth="770.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="64.0" />
-                  <Button fx:id="loadButton" layoutX="558.0" layoutY="19.0" mnemonicParsing="false" text="Load" textAlignment="CENTER" />
-                  <Label fx:id="enterDataLabel" layoutX="14.0" layoutY="21.0" text="Enter values here, separated by commas. Enclose in quotes for text." wrapText="true">
+                  <Button fx:id="loadButton" layoutX="562.0" layoutY="19.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="222.0" text="Load" textAlignment="CENTER" AnchorPane.leftAnchor="562.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0" />
+                  <Label fx:id="enterDataLabel" layoutX="14.0" layoutY="21.0" text="Enter values here, separated by commas." wrapText="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
                      <font>
                         <Font name="Futura Medium" size="17.0" />
                      </font>
                   </Label>
+                  <ChoiceBox fx:id="typeBox" layoutX="344.0" layoutY="19.0" prefHeight="27.0" prefWidth="203.0" AnchorPane.topAnchor="16.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -34,6 +35,8 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Canvas fx:id="canvas" height="501.0" layoutX="14.0" layoutY="50.0" width="772.0" />
+                  <ChoiceBox fx:id="algoBox" layoutX="14.0" layoutY="521.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="628.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="156.0" />
+                  <Button layoutX="650.0" layoutY="521.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="134.0" text="Button" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="16.0" />
                </children></AnchorPane>
       </content>
     </Tab>

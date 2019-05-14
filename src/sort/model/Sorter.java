@@ -15,73 +15,59 @@ public class Sorter
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Sorter(Canvas canvas, String toSort)
+	public Sorter(Canvas canvas, String type, String toSort)
 	{
 		super();
-		injectData(canvas, toSort);
+		injectData(canvas, type, toSort);
 	}
 	
-	public void injectData(Canvas canvas, String toSort)
+	public void injectData(Canvas canvas, String type, String toSort)
 	{
 		double canvasWidth = canvas.getWidth();
 		double canvasHeight = canvas.getHeight();
-		String type;
-		
-		if(toSort.contains("\"")) {
-			type = "string"; }
-		else if(toSort.contains(".")) {
-			type = "double"; }
-		else if(!containsNumbers(toSort)) {
-			type = "char";
-		}
-		else { type = "int"; }
 /*
  * BEGIN SEPARATING VALUES
  */
-		String temp;
+		String temp = toSort;
+		temp = temp.replaceAll(" ", "");
+		temp = temp.replaceAll("[A-Z]", "[a-z]");
+		int amountOfValues = temp.length() - (temp.replace("[a-z]", "").length());
+		
 		switch(type)
 		{
 //////////
 		case "string":
-			temp = toSort;
 			values = new ArrayList<String>();
+
+			System.out.println(amountOfValues + " values");
 			
-			int amountOfValues = 1;
-			for(int index = 0; index < toSort.length(); index ++) {
-				if(toSort.charAt(index) == ',') {
-					amountOfValues++;
-				}
-			}
-			
-			int startIndex, endIndex;
 			String tempValue;
-			for(int index = 0; index <= amountOfValues; index ++)
+			temp = temp.replaceAll("\"", "");
+			temp = temp.replaceAll(" ", "");
+			for(int index = 0; index < amountOfValues; index ++)
 			{
-				tempValue = temp.substring(temp.indexOf("\"") + 1);
-				tempValue = temp.substring(0, temp.indexOf("\""));
+				tempValue = temp.substring(0, temp.indexOf(","));
 				values.add(tempValue);
-				temp = temp.replaceFirst(tempValue, "");
+				temp = temp.replaceFirst(tempValue + ",", "");
+				System.out.println(temp);
 			}
-			buildGraphic(values, type);
+			buildGraphic(values);
 			break;
 			
 //////////						
 		case "double":
-			temp = toSort;
 			values = new ArrayList<Double>();
 			
 			break;
 			
 //////////			
 		case "char":
-			temp = toSort;
 			values = new ArrayList<Character>();
 			
 			break;
 			
 //////////
 		case "int":
-			temp = toSort;
 			values = new ArrayList<Integer>();
 			
 			break;	
@@ -90,9 +76,12 @@ public class Sorter
 	}
 	
 	
-	public void buildGraphic(ArrayList list, String type)
+	public void buildGraphic(ArrayList list)
 	{
-		
+		for(int index = 0; index < list.size(); index ++)
+		{
+			System.out.println(list.get(index));
+		}
 	}
 	
 	
