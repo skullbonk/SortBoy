@@ -92,14 +92,21 @@ public class SortController extends Application
 	
 	private void submitSort()
 	{
-		if(sorter == null)
+		if(!entryField.getText().isEmpty())
 		{
-			sorter = new Sorter(canvas, entryField.getText());
+			if(sorter == null)
+			{
+				sorter = new Sorter(canvas, entryField.getText());
+			}
+			else
+			{
+				sorter.injectData(canvas, entryField.getText());
+				System.out.println(entryField.getText());
+			}
 		}
 		else
 		{
-			sorter.injectData(canvas, entryField.getText());
-			System.out.println(entryField.getText());
+			entryField.setText("No values to submit");
 		}
 	}
 	
