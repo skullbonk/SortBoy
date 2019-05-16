@@ -38,18 +38,14 @@ public class Sorter
 		temp = temp.replaceAll(" ", ""); // remove spaces
 		temp = temp.replaceAll("[A-Z]", "[a-z]"); // change to lowercase
 		int amountOfValues = (temp.length() - (temp.replace("[a-z]", "").length())) + 1;
-		System.out.println(amountOfValues + " values");
-		
+		System.out.println("values: " + amountOfValues);
 		String tempString;
 		switch(type)
 		{
 //////////
 		case "string":
-		
-			values = new ArrayList<String>();
-
-			System.out.println(amountOfValues + " values");
-			
+	
+			values = new ArrayList<String>();		
 			for(int index = 0; index < amountOfValues; index ++)
 			{
 				if(temp.contains(","))
@@ -99,6 +95,7 @@ public class Sorter
 				tempChar = temp.charAt(index);
 				values.add(tempChar);
 			}
+			buildGraphic(values);
 			break;
 			
 //////////
@@ -119,6 +116,7 @@ public class Sorter
 				values.add(tempInt);
 				temp = temp.replaceFirst(tempString + ",", "");
 			}
+			buildGraphic(values);
 			break;	
 		}
 	}
@@ -128,7 +126,8 @@ public class Sorter
 	{
 		for(int index = 0; index < list.size(); index ++)
 		{
-			System.out.println(list.get(index));
+			
+//			System.out.println(list.get(index));
 		}
 	}
 	
