@@ -113,70 +113,46 @@ public class SortController extends Application
 	 */
 	private void submitSort()
 	{
-		String type = typeBox.getSelectionModel().getSelectedItem();
-		String data = entryField.getText();
-		if(!type.isEmpty())
+		try
 		{			
-			if(sorter == null)
-			{
-				sorter = new Sorter(canvas, type, data);
+			String type = typeBox.getSelectionModel().getSelectedItem();
+			String data = entryField.getText();
+			if(!type.isEmpty())
+			{			
+				if(sorter == null)
+				{
+					sorter = new Sorter(canvas, type, data);
+				}
+				else
+				{
+					sorter.injectData(canvas, type, data);
+				}
 			}
 			else
 			{
-				sorter.injectData(canvas, type, data);
+				Alert noType = new Alert(AlertType.ERROR);
+				noType.setTitle("Error");
+				noType.setHeaderText("No data type specified");
+				noType.setContentText("Select a data type to continue");
+				noType.showAndWait();
 			}
 		}
-		else
+		catch(NumberFormatException numFormatException)
 		{
-			Alert noType = new Alert(AlertType.ERROR);
-			noType.setTitle("Error");
-			noType.setHeaderText("No data type specified");
-			noType.setContentText("Select a data type to continue");
-			noType.showAndWait();
+			createErrorMessage(numFormatException);
 		}
 	}
 	
 	
-	private boolean dataIsValid(String type, String data)
+	private void createErrorMessage(Exception exception)
 	{
-		boolean valid = false;
-		if(!data.isEmpty())
-		{
-			switch(type)
-			{
-			case "string":
-				valid = true;
-				break;
-				
-			case "integer":
-				if(data.contains("[0-9]"))
-				{
-					if(!data.contains("[a-z]"))
-					{
-						valid = true;
-					}
-				}
-				break;
-				
-			case "double":
-				if(data.contains("[0-9"))
-				{
-					if(data.contains("."))
-					{
-						if(!data.contains("[a-z]"))
-						{
-							valid = true;
-						}
-					}
-				}
-				break;
-				
-			case "character":
-				valid = true;
-				break;
-			}
-		}
-		return valid;
+		Alert errorMessage = new Alert(AlertType.ERROR);
+		errorMessage.setTitle("Error");
+		String message = String.valueOf(exception);
+		message = message.replace("java.lang.", "");
+		errorMessage.setHeaderText(message);
+		errorMessage.setContentText("Ensure your data matches the selected type");
+		errorMessage.showAndWait();
 	}
 	
 	
