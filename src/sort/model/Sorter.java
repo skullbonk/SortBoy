@@ -37,7 +37,8 @@ public class Sorter
 		String temp = toSort;
 		temp = temp.replaceAll(" ", ""); // remove spaces
 		temp = temp.replaceAll("[A-Z]", "[a-z]"); // change to lowercase
-		int amountOfValues = temp.length() - (temp.replace("[a-z]", "").length());
+		int amountOfValues = (temp.length() - (temp.replace("[a-z]", "").length())) + 1;
+		System.out.println(amountOfValues + " values");
 		
 		String tempString;
 		switch(type)
@@ -51,7 +52,14 @@ public class Sorter
 			
 			for(int index = 0; index < amountOfValues; index ++)
 			{
-				tempString = temp.substring(0, temp.indexOf(","));
+				if(temp.contains(","))
+				{
+					tempString = temp.substring(0, temp.indexOf(","));					
+				}
+				else
+				{
+					tempString = temp.substring(0);
+				}
 				values.add(tempString);
 				temp = temp.replaceFirst(tempString + ",", "");
 				System.out.println(temp);
@@ -65,7 +73,14 @@ public class Sorter
 			double tempDouble;
 			for(int index = 0; index < amountOfValues; index ++)
 			{
-				tempString = temp.substring(0, temp.indexOf(","));
+				if(temp.contains(","))
+				{
+					tempString = temp.substring(0, temp.indexOf(","));					
+				}
+				else
+				{
+					tempString = temp.substring(0);
+				}
 				tempDouble = Double.valueOf(tempString);
 				values.add(tempDouble);
 				temp = temp.replaceFirst(tempString + ",", "");
@@ -78,9 +93,9 @@ public class Sorter
 		case "character":
 			values = new ArrayList<Character>();
 			char tempChar;
+			temp.replaceAll(",", "");
 			for(int index = 0; index < amountOfValues; index ++)
 			{
-				temp.replaceAll(",", "");
 				tempChar = temp.charAt(index);
 				values.add(tempChar);
 			}
@@ -92,15 +107,20 @@ public class Sorter
 			int tempInt;
 			for(int index = 0; index < amountOfValues; index ++)
 			{
-				tempString = temp.substring(0, temp.indexOf(","));
+				if(temp.contains(","))
+				{
+					tempString = temp.substring(0, temp.indexOf(","));
+				}
+				else
+				{
+					tempString = temp.substring(0);
+				}
 				tempInt = Integer.valueOf(tempString);
 				values.add(tempInt);
 				temp = temp.replaceFirst(tempString + ",", "");
-				System.out.println(temp);
 			}
 			break;	
 		}
-		
 	}
 	
 	
