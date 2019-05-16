@@ -21,6 +21,12 @@ public class Sorter
 		injectData(canvas, type, toSort);
 	}
 	
+	/**
+	 * Submits values for sorting
+	 * @param canvas The canvas on which to draw data representations
+	 * @param type
+	 * @param toSort
+	 */
 	public void injectData(Canvas canvas, String type, String toSort)
 	{
 		double canvasWidth = canvas.getWidth();
@@ -29,26 +35,25 @@ public class Sorter
  * BEGIN SEPARATING VALUES
  */
 		String temp = toSort;
-		temp = temp.replaceAll(" ", "");
-		temp = temp.replaceAll("[A-Z]", "[a-z]");
+		temp = temp.replaceAll(" ", ""); // remove spaces
+		temp = temp.replaceAll("[A-Z]", "[a-z]"); // change to lowercase
 		int amountOfValues = temp.length() - (temp.replace("[a-z]", "").length());
 		
+		String tempString;
 		switch(type)
 		{
 //////////
 		case "string":
+		
 			values = new ArrayList<String>();
 
 			System.out.println(amountOfValues + " values");
 			
-			String tempValue;
-			temp = temp.replaceAll("\"", "");
-			temp = temp.replaceAll(" ", "");
 			for(int index = 0; index < amountOfValues; index ++)
 			{
-				tempValue = temp.substring(0, temp.indexOf(","));
-				values.add(tempValue);
-				temp = temp.replaceFirst(tempValue + ",", "");
+				tempString = temp.substring(0, temp.indexOf(","));
+				values.add(tempString);
+				temp = temp.replaceFirst(tempString + ",", "");
 				System.out.println(temp);
 			}
 			buildGraphic(values);
@@ -57,19 +62,42 @@ public class Sorter
 //////////						
 		case "double":
 			values = new ArrayList<Double>();
-			
+			double tempDouble;
+			for(int index = 0; index < amountOfValues; index ++)
+			{
+				tempString = temp.substring(0, temp.indexOf(","));
+				tempDouble = Double.valueOf(tempString);
+				values.add(tempDouble);
+				temp = temp.replaceFirst(tempString + ",", "");
+				System.out.println(temp);
+			}
+			buildGraphic(values);
 			break;
 			
 //////////			
-		case "char":
+		case "character":
 			values = new ArrayList<Character>();
-			
+			char tempChar;
+			for(int index = 0; index < amountOfValues; index ++)
+			{
+				temp.replaceAll(",", "");
+				tempChar = temp.charAt(index);
+				values.add(tempChar);
+			}
 			break;
 			
 //////////
-		case "int":
+		case "integer":
 			values = new ArrayList<Integer>();
-			
+			int tempInt;
+			for(int index = 0; index < amountOfValues; index ++)
+			{
+				tempString = temp.substring(0, temp.indexOf(","));
+				tempInt = Integer.valueOf(tempString);
+				values.add(tempInt);
+				temp = temp.replaceFirst(tempString + ",", "");
+				System.out.println(temp);
+			}
 			break;	
 		}
 		
@@ -82,6 +110,12 @@ public class Sorter
 		{
 			System.out.println(list.get(index));
 		}
+	}
+	
+	
+	public void sortData(String algorithm)
+	{
+		
 	}
 	
 	

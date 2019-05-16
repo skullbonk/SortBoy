@@ -1,9 +1,11 @@
 package sort.controller;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.BarChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -42,7 +46,9 @@ public class SortController extends Application
 	@FXML private Tab sortTab;
 	@FXML private Label enterDataLabel;
 	@FXML private TextField entryField;
+	@FXML private Button submitButton;
 	@FXML private Button sortButton;
+	@FXML private Button saveButton;
 	@FXML private Button loadButton;
 	@FXML private ChoiceBox<String> typeBox;
 	@FXML private ChoiceBox<String> algoBox;
@@ -71,55 +77,124 @@ public class SortController extends Application
 		stage.show();
 	}
 	
-	
-//	@FXML
-//	private void handleLoadButtonAction(ActionEvent event)
-//	{
-//		loadData();
-//	}
 
 	@FXML
+	/**
+	 * Sets up button events, choice box items
+	 */
 	private void initialize()
 	{
 		typeBox.setItems(FXCollections.observableArrayList(
 				"string", "integer", "double", "character"));
+		typeBox.setValue("integer");
 		typeBox.setTooltip(new Tooltip("The type of data to sort"));
+		
+		saveButton.setOnAction((event) -> {
+			saveData();
+		});
 		
 		loadButton.setOnAction((event) -> {
 			loadData();
 		});
 		
-		sortButton.setOnAction((event) -> {
+		submitButton.setOnAction((event) -> {
 			submitSort();
 			// change to sort tab
 		});
 		
+		sortButton.setOnAction((event) -> {	
+			sortData(algoBox.getSelectionModel().getSelectedItem());
+		});
+		
 	}
 	
-	
+	/**
+	 * Sends data to Sorter
+	 */
 	private void submitSort()
 	{
 		String type = typeBox.getSelectionModel().getSelectedItem();
-		if(!type.equals(""))
+		String data = entryField.getText();
+		if(!type.isEmpty())
 		{			
-			if(!entryField.getText().isEmpty())
+			if(sorter == null)
 			{
-				if(sorter == null)
-				{
-					sorter = new Sorter(canvas, type, entryField.getText());
-				}
-				else
-				{
-					sorter.injectData(canvas, type, entryField.getText());
-//				System.out.println(entryField.getText());
-				}
+				sorter = new Sorter(canvas, type, data);
 			}
 			else
 			{
-				entryField.setText("No values to submit");
+				sorter.injectData(canvas, type, data);
 			}
 		}
 		else
+		{
+			Alert noType = new Alert(AlertType.ERROR);
+			noType.setTitle("Error");
+			noType.setHeaderText("No data type specified");
+			noType.setContentText("Select a data type to continue");
+			noType.showAndWait();
+		}
+	}
+	
+	
+	private boolean dataIsValid(String type, String data)
+	{
+		boolean valid = false;
+		if(!data.isEmpty())
+		{
+			switch(type)
+			{
+			case "string":
+				valid = true;
+				break;
+				
+			case "integer":
+				if(data.contains("[0-9]"))
+				{
+					if(!data.contains("[a-z]"))
+					{
+						valid = true;
+					}
+				}
+				break;
+				
+			case "double":
+				if(data.contains("[0-9"))
+				{
+					if(data.contains("."))
+					{
+						if(!data.contains("[a-z]"))
+						{
+							valid = true;
+						}
+					}
+				}
+				break;
+				
+			case "character":
+				valid = true;
+				break;
+			}
+		}
+		return valid;
+	}
+	
+	
+	private void sortData(String algorithm)
+	{
+		sorter.sortData(algorithm);
+	}
+	
+	
+	private void saveData()
+	{
+		try
+		{
+			String text = entryField.getText();
+			
+			
+		}
+		catch(IOError error)
 		{
 			
 		}
