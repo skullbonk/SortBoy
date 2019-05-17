@@ -84,6 +84,7 @@ public class SortController extends Application
 	 */
 	private void initialize()
 	{
+		SingleSelectionModel<Tab> selectionModel = tabs.getSelectionModel();
 		typeBox.setItems(FXCollections.observableArrayList(
 				"string", "integer", "double", "character"));
 		typeBox.setValue("integer");

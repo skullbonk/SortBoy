@@ -3,7 +3,9 @@ package sort.model;
 import java.util.ArrayList;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Paint;
 import sort.controller.SortController;
+import sort.view.Chunk;
 
 public class Sorter
 {
@@ -60,7 +62,7 @@ public class Sorter
 				temp = temp.replaceFirst(tempString + ",", "");
 				System.out.println(temp);
 			}
-			buildGraphic(values);
+			buildGraphic(values, canvas);
 			break;
 			
 //////////						
@@ -82,7 +84,7 @@ public class Sorter
 				temp = temp.replaceFirst(tempString + ",", "");
 				System.out.println(temp);
 			}
-			buildGraphic(values);
+			buildGraphic(values, canvas);
 			break;
 			
 //////////			
@@ -95,7 +97,7 @@ public class Sorter
 				tempChar = temp.charAt(index);
 				values.add(tempChar);
 			}
-			buildGraphic(values);
+			buildGraphic(values, canvas);
 			break;
 			
 //////////
@@ -116,16 +118,18 @@ public class Sorter
 				values.add(tempInt);
 				temp = temp.replaceFirst(tempString + ",", "");
 			}
-			buildGraphic(values);
+			buildGraphic(values, canvas);
 			break;	
 		}
 	}
 	
 	
-	public void buildGraphic(ArrayList list)
+	public void buildGraphic(ArrayList list, Canvas canvas)
 	{
+		double canvasHeight = canvas.getHeight();
+		double canvasWidth = canvas.getWidth();
 		for(int index = 0; index < list.size(); index ++)
-		{
+		{	
 			
 //			System.out.println(list.get(index));
 		}
