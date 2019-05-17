@@ -128,7 +128,11 @@ public class Sorter
 	{
 		double canvasHeight = canvas.getHeight();
 		double canvasWidth = canvas.getWidth();
-		for(int index = 0; index < list.size(); index ++)
+		
+		int amountOfValues = list.size();
+		double chunkWidth = canvasWidth / list.size();
+		
+		for(int remainingValues = 0; remainingValues < amountOfValues; remainingValues ++)
 		{	
 			
 //			System.out.println(list.get(index));
