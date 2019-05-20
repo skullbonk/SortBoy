@@ -86,7 +86,7 @@ public class SortController extends Application
 	{
 		SingleSelectionModel<Tab> selectionModel = tabs.getSelectionModel();
 		typeBox.setItems(FXCollections.observableArrayList(
-				"string", "integer", "double", "character"));
+				"integer", "double", "character"));
 		typeBox.setValue("integer");
 		typeBox.setTooltip(new Tooltip("The type of data to sort"));
 		
@@ -120,14 +120,7 @@ public class SortController extends Application
 			String data = entryField.getText();
 			if(!type.isEmpty())
 			{			
-				if(sorter == null)
-				{
-					sorter = new Sorter(canvas, type, data);
-				}
-				else
-				{
-					sorter.injectData(canvas, type, data);
-				}
+				sorter = new Sorter(canvas, type, data);
 			}
 			else
 			{

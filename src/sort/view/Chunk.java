@@ -1,29 +1,15 @@
 package sort.view;
 
+
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
-public class Chunk extends Group
+public class Chunk
 {
-	public Chunk(Canvas canvas, int number)
+	public Chunk(GraphicsContext graphics, Color color, double width, double height, String value)
 	{
-		super();
-		// TODO Auto-generated constructor stub
+		graphics.setFill(color);
 	}
-	
-	public Chunk(Canvas canvas, double number)
-	{
-		
-	}
-	
-	public Chunk(Canvas canvas, String word)
-	{
-		
-	}
-	
-	public Chunk(Canvas canvas, char character)
-	{
-		
-	}
-
 }
