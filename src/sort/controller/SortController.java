@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOError;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -90,6 +91,9 @@ public class SortController extends Application
 		typeBox.setValue("integer");
 		typeBox.setTooltip(new Tooltip("The type of data to sort"));
 		
+		algoBox.setItems(FXCollections.observableArrayList(
+				"insertion", "merge", "quick"));
+		
 		saveButton.setOnAction((event) -> {
 			saveData();
 		});
@@ -104,7 +108,7 @@ public class SortController extends Application
 		});
 		
 		sortButton.setOnAction((event) -> {	
-			sortData(algoBox.getSelectionModel().getSelectedItem());
+			sortData(algoBox.getSelectionModel().getSelectedItem(), typeBox.getSelectionModel().getSelectedItem());
 		});
 		
 	}
@@ -134,40 +138,62 @@ public class SortController extends Application
 		}
 		catch(NumberFormatException numFormatException)
 		{
-			createErrorMessage(numFormatException);
+			createErrorMessage(numFormatException, "Ensure entered data matches the selected type");
 		}
 	}
 	
 	
-	private void createErrorMessage(Exception exception)
+	private void createErrorMessage(Exception exception, String content)
 	{
 		Alert errorMessage = new Alert(AlertType.ERROR);
 		errorMessage.setTitle("Error");
 		String message = String.valueOf(exception);
 		message = message.replace("java.lang.", "");
 		errorMessage.setHeaderText(message);
-		errorMessage.setContentText("Ensure entered data matches the selected type");
+		errorMessage.setContentText(content);
 		errorMessage.showAndWait();
 	}
 	
-	
-	private void sortData(String algorithm)
+	private void createErrorMessage(Error error, String content)
 	{
-		sorter.sortData(algorithm);
+		Alert errorMessage = new Alert(AlertType.ERROR);
+		errorMessage.setTitle("Error");
+		String message = String.valueOf(error);
+		message = message.replace("java.lang.", "");
+		errorMessage.setHeaderText(message);
+		errorMessage.setContentText(content);
+		errorMessage.showAndWait();
+	}
+	
+	private void sortData(String algorithm, String type)
+	{
+		sorter.sortData(algorithm, type);
 	}
 	
 	
 	private void saveData()
 	{
+		String text = entryField.getText();
 		try
 		{
-			String text = entryField.getText();
-			
-			
+			FileChooser fileChooser = new FileChooser();
+			File saveFile = fileChooser.showSaveDialog(stage);
+			Scanner textScanner = new Scanner(text);
+			PrintWriter saveText = new PrintWriter(saveFile);
+			while(textScanner.hasNext())
+			{
+				String currentLine = textScanner.nextLine();
+				saveText.println(currentLine);
+			}
+			textScanner.close();
+			saveText.close();
 		}
-		catch(IOError error)
+		catch(Error error)
 		{
-			
+			createErrorMessage(error, "broken");
+		}
+		catch(FileNotFoundException notFound) {
+			createErrorMessage(notFound, "yell at reagnan");
 		}
 	}
 	
@@ -183,7 +209,6 @@ public class SortController extends Application
 			extension = extension.substring(extension.lastIndexOf("."));
 			System.out.println("File extension: " + extension);
 			assert extension.equalsIgnoreCase(".txt");
-//			FileReader reader = new FileReader(textFile.getPath());
 			text = new String(Files.readAllBytes(Paths.get(textFile.getPath())));
 			entryField.setText(text);
 		}

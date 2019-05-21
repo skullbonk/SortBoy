@@ -16,7 +16,7 @@ public class Sorter
 	private ArrayList<Integer> valuesInt;
 	private ArrayList<Double> valuesDouble;
 	private ArrayList<Character> valuesChar;
-//	private GraphicsContext graphics;
+	private GraphicsContext graphics;
 	private Random random;
 	private double canvasWidth;
 	private double canvasHeight;
@@ -31,7 +31,8 @@ public class Sorter
 	{
 		super();
 		random = new Random();
-		final GraphicsContext graphics = canvas.getGraphicsContext2D();
+//		final GraphicsContext graphics = canvas.getGraphicsContext2D();
+		graphics = canvas.getGraphicsContext2D();
 		canvasWidth = canvas.getWidth();
 		canvasHeight = canvas.getHeight();
 		injectData(graphics, type, toSort);
@@ -200,22 +201,57 @@ public class Sorter
 			startX = chunkWidth * index;
 			chunkHeight = chunkHeightScale * Double.valueOf(String.valueOf(list.get(index)));
 			chunk = new Chunk(graphics, colors.get(index), chunkWidth, chunkHeight, String.valueOf(list.get(index)), startX);
-			
+			try {
+			Thread.sleep(4000);
+			}
+			catch(InterruptedException interrupted) {
+				System.out.println("interrupted");
+			}
 //			System.out.println(list.get(index));
 		}
 	}
 	
 	
-	public void sortData(String algorithm)
+	public void sortData(String type, String algorithm)
 	{
-		
+		ArrayList values = getList(type);
+		double max = 0.0;
+		for(int index = 0; index < values.size(); index ++) {
+			if(max < (double) values.get(index)) {
+				max = (double) values.get(index);
+			}
+		}
+		buildGraphic(values, graphics, max);
 	}
 		
 	
-	public void updateCanvas()
+	public ArrayList quickSort(ArrayList values) 
 	{
-		
+		ArrayList sorted = values;
+		return sorted;
 	}
+	
+	
+	public ArrayList getList(String type)
+	{
+		ArrayList list = new ArrayList();
+		switch(type) {
+		case "integer":
+			list = valuesInt;
+			break;
+		case "double":
+			list = valuesDouble;
+			break;
+		case "character":
+			list = valuesChar;
+			break;
+		case "string":
+			list = valuesString;
+			break;
+		}
+		return list;
+	}
+	
 	
 	/**
 	 * @return a number from 0 to 255
