@@ -24,12 +24,12 @@
                      <font>
                         <Font name="Futura Medium" size="13.0" />
                      </font></Button>
-                  <Label fx:id="enterDataLabel" layoutX="14.0" layoutY="21.0" text="Enter values here, separated by commas." wrapText="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+                  <Label fx:id="enterDataLabel" layoutX="14.0" layoutY="2.0" prefHeight="52.0" prefWidth="322.0" text="Enter values here, separated by commas.&#10;" wrapText="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="2.0">
                      <font>
                         <Font name="Futura Medium" size="17.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="typeBox" layoutX="344.0" layoutY="19.0" prefHeight="27.0" prefWidth="203.0" AnchorPane.topAnchor="16.0" />
+                  <ChoiceBox fx:id="typeBox" layoutX="345.0" layoutY="16.0" prefHeight="27.0" prefWidth="203.0" AnchorPane.topAnchor="16.0" />
                   <Button fx:id="saveButton" layoutX="705.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="103.0" text="Save" textAlignment="CENTER" AnchorPane.rightAnchor="16.0">
                      <font>
                         <Font name="Futura Medium" size="13.0" />

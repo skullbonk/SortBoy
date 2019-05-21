@@ -8,8 +8,9 @@ import javafx.scene.paint.Color;
 
 public class Chunk
 {
-	public Chunk(GraphicsContext graphics, Color color, double width, double height, String value)
+	public Chunk(GraphicsContext graphics, Color color, double bottomLeft, double topLeft, double topRight, double bottomRight,  String value)
 	{
 		graphics.setFill(color);
+		
 	}
 }

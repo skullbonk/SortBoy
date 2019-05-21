@@ -11,12 +11,12 @@ import sort.view.Chunk;
 
 public class Sorter
 {
-	static final int ASCII_SIZE = 256;
+	static final int ASCII_SIZE = 255;
 	private ArrayList<String> valuesString;
 	private ArrayList<Integer> valuesInt;
 	private ArrayList<Double> valuesDouble;
 	private ArrayList<Character> valuesChar;
-	private GraphicsContext graphics;
+//	private GraphicsContext graphics;
 	private Random random;
 	private double canvasWidth;
 	private double canvasHeight;
@@ -31,7 +31,7 @@ public class Sorter
 	{
 		super();
 		random = new Random();
-		graphics = canvas.getGraphicsContext2D();
+		final GraphicsContext graphics = canvas.getGraphicsContext2D();
 		canvasWidth = canvas.getWidth();
 		canvasHeight = canvas.getHeight();
 		injectData(graphics, type, toSort);
@@ -120,7 +120,6 @@ public class Sorter
 			
 			valuesChar = new ArrayList<Character>();
 			char tempChar;
-			temp.replaceAll(",", "");
 			amountOfValues = temp.length();
 			for(int index = 0; index < amountOfValues; index ++)
 			{
@@ -180,6 +179,8 @@ public class Sorter
 		double chunkWidth = canvasWidth / list.size();
 		double maxChunkHeight = canvasHeight * .9;
 		double chunkHeightScale = maxChunkHeight / maxValue; 
+		
+		double bottomLeft, topLeft, bottomRight, topRight;
 		System.out.println("chunk width: " + chunkWidth);
 		System.out.println("max chunk height: " + maxChunkHeight);
 		System.out.println("chunk height scale: " + chunkHeightScale);
@@ -221,19 +222,27 @@ public class Sorter
 	{
 		int count[] = new int[ASCII_SIZE];
 		String temp = "";
-		int max = -1;
-		for(char val : list)
+		int max = 0;
+		
+		for(int i = 0; i < list.size(); i ++)
 		{
-			temp += val;
+			count[list.get(i)]++;
 		}
 		
-		for(int i = 0; i < temp.length(); i ++)
+		char[] characters = new char[list.size()];
+		for(int i = 0; i < list.size(); i ++)
 		{
-			if(max < count[temp.charAt(i)])
-			{
-				max = count[temp.charAt(i)];
-			}
+			characters[i] = list.get(i);
+			for(int j = 0; j <= i; j ++)
+			{				
+				if(list.get(i).equals(characters[j]))
+				{
+					max ++;
+				}
+			}			
 		}
+		
+		
 		return max;
 	}
 }

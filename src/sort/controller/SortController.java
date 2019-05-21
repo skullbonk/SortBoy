@@ -18,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -86,7 +85,7 @@ public class SortController extends Application
 	{
 		SingleSelectionModel<Tab> selectionModel = tabs.getSelectionModel();
 		typeBox.setItems(FXCollections.observableArrayList(
-				"integer", "double", "character"));
+			/*"string", */"integer", "double"/*, "character"*/));
 		typeBox.setValue("integer");
 		typeBox.setTooltip(new Tooltip("The type of data to sort"));
 		
@@ -145,7 +144,7 @@ public class SortController extends Application
 		String message = String.valueOf(exception);
 		message = message.replace("java.lang.", "");
 		errorMessage.setHeaderText(message);
-		errorMessage.setContentText("Ensure your data matches the selected type");
+		errorMessage.setContentText("Ensure entered data matches the selected type");
 		errorMessage.showAndWait();
 	}
 	
