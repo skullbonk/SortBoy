@@ -42,6 +42,8 @@ public class SortController extends Application
 	private TabPane tabs;
 	private Sorter sorter;
 	
+//	private boolean enableAuto = true; // if this is enabled, values are automatically generated
+	
 	@FXML private SingleSelectionModel<Tab> selectionModel;
 	@FXML private Tab setupTab;
 	@FXML private Tab sortTab;
@@ -54,6 +56,7 @@ public class SortController extends Application
 	@FXML private ChoiceBox<String> typeBox;
 	@FXML private ChoiceBox<String> algoBox;
 	@FXML public Canvas canvas;
+//	public Button autoButton;
 	
 	public SortController()
 	{
@@ -93,6 +96,8 @@ public class SortController extends Application
 		
 		algoBox.setItems(FXCollections.observableArrayList(
 				"insertion", "merge", "quick"));
+		algoBox.setValue("quick");
+		algoBox.setTooltip(new Tooltip("The sorting algorithm to be used"));
 		
 		saveButton.setOnAction((event) -> {
 			saveData();
@@ -108,9 +113,34 @@ public class SortController extends Application
 		});
 		
 		sortButton.setOnAction((event) -> {	
-			sortData(algoBox.getSelectionModel().getSelectedItem(), typeBox.getSelectionModel().getSelectedItem());
+			tabs.getSelectionModel().select(sortTab);
+			sortData(typeBox.getSelectionModel().getSelectedItem(), algoBox.getSelectionModel().getSelectedItem());
 		});
 		
+	}
+	
+	private String autoFill(String type)
+	{
+		String data = "";
+		String temp = "";
+		if(type.equals("integer"))
+		{
+			for(int i = 0; i < sorter.getR(100) + 1; i ++)
+			{
+				data.concat(String.valueOf(sorter.getR(100)) + ",");
+			}
+			
+		}
+		else if(type.equals("double"))
+		{
+			for(int i = 0; i < sorter.getR(100) + 1; i ++)
+			{
+				temp = String.valueOf(sorter.getR(100)) + "." + String.valueOf(sorter.getR(100));
+				data.concat(temp + ",");
+			}
+		}
+		data = data.substring(0, data.length() - 1);
+		return data;
 	}
 	
 	/**
@@ -119,13 +149,13 @@ public class SortController extends Application
 	private void submitSort()
 	{
 		try
-		{			
+		{		
 			String type = typeBox.getSelectionModel().getSelectedItem();
-			String data = entryField.getText();
+			String data;
+			data = entryField.getText();
 			if(!type.isEmpty())
-			{			
+			{		
 				sorter = new Sorter(canvas, type, data);
-				selectionModel.selectLast();
 			}
 			else
 			{

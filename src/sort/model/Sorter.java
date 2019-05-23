@@ -187,7 +187,6 @@ public class Sorter
 		double maxChunkHeight = canvasHeight * .9;
 		double chunkHeightScale = maxChunkHeight / maxValue; 
 		
-		double bottomLeft, topLeft, bottomRight, topRight;
 		System.out.println("chunk width: " + chunkWidth);
 		System.out.println("max chunk height: " + maxChunkHeight);
 		System.out.println("chunk height scale: " + chunkHeightScale);
@@ -202,12 +201,11 @@ public class Sorter
 			chunkHeight = chunkHeightScale * Double.valueOf(String.valueOf(list.get(index)));
 			chunk = new Chunk(graphics, colors.get(index), chunkWidth, chunkHeight, String.valueOf(list.get(index)), startX);
 			try {
-			Thread.sleep(4000);
+			graphics.wait(100);
 			}
 			catch(InterruptedException interrupted) {
 				System.out.println("interrupted");
 			}
-//			System.out.println(list.get(index));
 		}
 	}
 	
@@ -215,20 +213,73 @@ public class Sorter
 	public void sortData(String type, String algorithm)
 	{
 		ArrayList values = getList(type);
+		System.out.println("algorithm: " + algorithm);
 		double max = 0.0;
 		for(int index = 0; index < values.size(); index ++) {
-			if(max < (double) values.get(index)) {
-				max = (double) values.get(index);
+			if(max < Double.valueOf(String.valueOf(values.get(index)))) {
+				max = Double.valueOf(String.valueOf(values.get(index)));
 			}
 		}
+		int low = 0, high = values.size() - 1;
+		
+//		ArrayList sorted;
+		switch(algorithm) {
+		case "quick":
+			values = quickSort(values, low, high);
+			break;
+		case "merge":
+//			ArrayList sorted = mergeSort();
+			break;
+		case "insertion":
+			// insertion sort
+			break;
+		}
+		graphics.clearRect(0.0, 0.0, canvasWidth, canvasHeight);
 		buildGraphic(values, graphics, max);
 	}
 		
-	
-	public ArrayList quickSort(ArrayList values) 
+	/* low =  start index, high = end index */
+	private ArrayList quickSort(ArrayList values, int low, int high) 
 	{
 		ArrayList sorted = values;
+		if(low < high)
+		{
+
+			int part = partition(sorted, high, low);
+			
+			sorted = quickSort(sorted, low, part);
+			sorted = quickSort(sorted, part + 1, high);
+		}
+		
 		return sorted;
+	}
+	
+	
+	private int partition(ArrayList sorted, int high, int low)
+	{
+		double pivot = Double.valueOf(String.valueOf(sorted.get(low + (high - low) / 2)));
+		int index = low - 1;
+		int subIndex = high + 1;
+		while(true)
+		{
+			do 
+			{
+				index++;
+			}
+			while(Double.valueOf(String.valueOf(sorted.get(index))) < pivot);
+			do
+			{
+				subIndex--;
+			}
+			while(Double.valueOf(String.valueOf(sorted.get(subIndex))) > pivot);
+			if(index >= subIndex)
+			{
+				return subIndex;
+			}
+			double temp = Double.valueOf(String.valueOf(sorted.get(index)));
+			sorted.set(index, sorted.get(subIndex));
+			sorted.set(subIndex, temp);
+		}
 	}
 	
 	
@@ -259,6 +310,15 @@ public class Sorter
 	public double rVal()
 	{
 		return random.nextDouble();
+	}
+	
+	/** 
+	 * @param max The maximum int, exclusive
+	 * @return A random integer between 0 and the specified maximum
+	 */
+	public int getR(int max)
+	{
+		return random.nextInt(max);
 	}
 	
 	
