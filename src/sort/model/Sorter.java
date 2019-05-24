@@ -24,7 +24,10 @@ public class Sorter
 	public Sorter(Canvas canvas)
 	{
 		super();
-		// TODO Auto-generated constructor stub
+		random = new Random();
+		graphics = canvas.getGraphicsContext2D();
+		canvasWidth = canvas.getWidth();
+		canvasHeight = canvas.getHeight();
 	}
 	
 	public Sorter(Canvas canvas, String type, String toSort)
