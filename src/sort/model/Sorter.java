@@ -165,7 +165,6 @@ public class Sorter
 					maxInt = val;
 				}
 			}
-			
 			buildGraphic(valuesInt, graphics, maxInt);
 			break;	
 		}
@@ -179,14 +178,14 @@ public class Sorter
 	 */
 	public void buildGraphic(ArrayList list, GraphicsContext graphics, double maxValue)
 	{
+		graphics.clearRect(0.0, 0.0, canvasWidth, canvasHeight);
 		ArrayList<Color> colors = new ArrayList<Color>();
 		int amountOfValues = list.size();
-		double value;
+		String value;
 		double chunkHeight;
 		double chunkWidth = canvasWidth / list.size();
 		double maxChunkHeight = canvasHeight * .9;
-		double chunkHeightScale = maxChunkHeight / maxValue; 
-		
+		double chunkHeightScale = maxChunkHeight / maxValue; 		
 		System.out.println("chunk width: " + chunkWidth);
 		System.out.println("max chunk height: " + maxChunkHeight);
 		System.out.println("chunk height scale: " + chunkHeightScale);
@@ -196,20 +195,18 @@ public class Sorter
 		for(int index = 0; index < amountOfValues; index ++)
 		{	
 			colors.add(generateColor());
-			value = Double.valueOf(String.valueOf(list.get(index)));
+			value = String.valueOf(list.get(index));
 			startX = chunkWidth * index;
 			chunkHeight = chunkHeightScale * Double.valueOf(String.valueOf(list.get(index)));
-			chunk = new Chunk(graphics, colors.get(index), chunkWidth, chunkHeight, String.valueOf(list.get(index)), startX);
-			try {
-			graphics.wait(100);
-			}
-			catch(InterruptedException interrupted) {
-				System.out.println("interrupted");
-			}
+			chunk = new Chunk(graphics, colors.get(index), chunkWidth, chunkHeight, value, startX);
 		}
 	}
 	
-	
+	/**
+	 * Sorts the given ArrayList of values
+	 * @param type The type of object in the array
+	 * @param algorithm The sorting algorithm to be used
+	 */
 	public void sortData(String type, String algorithm)
 	{
 		ArrayList values = getList(type);
@@ -222,39 +219,35 @@ public class Sorter
 		}
 		int low = 0, high = values.size() - 1;
 		
-//		ArrayList sorted;
 		switch(algorithm) {
 		case "quick":
 			values = quickSort(values, low, high);
 			break;
 		case "merge":
-//			ArrayList sorted = mergeSort();
+			values = mergeSort(values);
 			break;
 		case "insertion":
-			// insertion sort
+			values = insertionSort(values);
 			break;
 		}
-		graphics.clearRect(0.0, 0.0, canvasWidth, canvasHeight);
 		buildGraphic(values, graphics, max);
 	}
-		
+	
+	
+//////////////// Q U I C K /////////////////////////
+//////////////// S O R T /////////////////////////
 	/* low =  start index, high = end index */
 	private ArrayList quickSort(ArrayList values, int low, int high) 
 	{
 		ArrayList sorted = values;
 		if(low < high)
 		{
-
-			int part = partition(sorted, high, low);
-			
+			int part = partition(sorted, high, low);	
 			sorted = quickSort(sorted, low, part);
 			sorted = quickSort(sorted, part + 1, high);
 		}
-		
 		return sorted;
-	}
-	
-	
+	}	
 	private int partition(ArrayList sorted, int high, int low)
 	{
 		double pivot = Double.valueOf(String.valueOf(sorted.get(low + (high - low) / 2)));
@@ -282,7 +275,50 @@ public class Sorter
 		}
 	}
 	
+
+//////////////// M E R G E //////////////////////
+///////////////// S O R T //////////////////////
+	private ArrayList mergeSort(ArrayList values)
+	{
+		if(values.size() <= 1) {
+			return values;
+		}
+		
+		ArrayList left = new ArrayList(), right = new ArrayList();
+		{
+			
+		}
+		return merge(left, right);
+	}
 	
+	private ArrayList merge(ArrayList left, ArrayList right)
+	{
+		ArrayList merged = new ArrayList();
+		if(!left.isEmpty() && !right.isEmpty())
+		{
+			
+		}
+		return merged;
+	}
+	
+	
+/////////////////// I N S E R T I O N /////////////////////
+/////////////////////// S O R T //////////////////////////
+	private ArrayList insertionSort(ArrayList values)
+	{
+		ArrayList sorted = values;
+		
+		return sorted;
+	}
+	
+	
+	/**
+	 * Gets the ArrayList that matches the specified object.
+	 * Probably not necessary.
+	 * My life is pretty much recursive obfuscation.
+	 * @param type The type of the list to find
+	 * @return An ArrayList of the specified object
+	 */
 	public ArrayList getList(String type)
 	{
 		ArrayList list = new ArrayList();
@@ -321,7 +357,10 @@ public class Sorter
 		return random.nextInt(max);
 	}
 	
-	
+	/**
+	 * Generates a JavaFX Color
+	 * @return A randomly generated Color
+	 */
 	public Color generateColor()
 	{
 		int selector = random.nextInt(3);
@@ -334,6 +373,11 @@ public class Sorter
 		return new Color(red, green, blue, .9);
 	}
 	
+	/**
+	 * Determines the number of appearances of the most common character, to scale graphics.
+	 * @param list An ArrayList of characters.
+	 * @return The number of appearances of the most common character. In theory.
+	 */
 	public int mostCommonCharacterCount(ArrayList<Character> list)
 	{
 		int count[] = new int[ASCII_SIZE];
@@ -356,9 +400,7 @@ public class Sorter
 					max ++;
 				}
 			}			
-		}
-		
-		
+		}	
 		return max;
 	}
 }
