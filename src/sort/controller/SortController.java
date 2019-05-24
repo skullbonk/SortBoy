@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 import sort.view.*;
 import sort.model.*;
 
-
+// JDK 10.0.1
 public class SortController extends Application
 {
 	private Stage stage;
