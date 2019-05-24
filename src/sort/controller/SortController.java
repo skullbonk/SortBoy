@@ -42,8 +42,6 @@ public class SortController extends Application
 	private TabPane tabs;
 	private Sorter sorter;
 	
-//	private boolean enableAuto = true; // if this is enabled, values are automatically generated
-	
 	@FXML private SingleSelectionModel<Tab> selectionModel;
 	@FXML private Tab setupTab;
 	@FXML private Tab sortTab;
@@ -56,7 +54,6 @@ public class SortController extends Application
 	@FXML private ChoiceBox<String> typeBox;
 	@FXML private ChoiceBox<String> algoBox;
 	@FXML public Canvas canvas;
-//	public Button autoButton;
 	
 	public SortController()
 	{
