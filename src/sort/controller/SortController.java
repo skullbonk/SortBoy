@@ -116,6 +116,9 @@ public class SortController extends Application
 		
 	}
 	
+	/**
+	 * This was supposed to automatically fill the entry box with stuff, but it got scrapped. Still here for some reason.
+	 */
 	private String autoFill(String type)
 	{
 		String data = "";
@@ -169,7 +172,11 @@ public class SortController extends Application
 		}
 	}
 	
-	
+	/**
+	 * Makes error messages for telling the user they are dumb
+	 * @param exception The thrown exception
+	 * @param content The telling of dumb
+	 */
 	private void createErrorMessage(Exception exception, String content)
 	{
 		Alert errorMessage = new Alert(AlertType.ERROR);
@@ -181,6 +188,11 @@ public class SortController extends Application
 		errorMessage.showAndWait();
 	}
 	
+	/**
+	 * Makes error messages for telling the user they are dumb
+	 * @param error The error
+	 * @param content The telling of dumb
+	 */
 	private void createErrorMessage(Error error, String content)
 	{
 		Alert errorMessage = new Alert(AlertType.ERROR);
@@ -192,12 +204,19 @@ public class SortController extends Application
 		errorMessage.showAndWait();
 	}
 	
+	/**
+	 * Makes sorter sort the stuff
+	 * @param algorithm Algorithm to use
+	 * @param type Type that's being sorted
+	 */
 	private void sortData(String algorithm, String type)
 	{
 		sorter.sortData(algorithm, type);
 	}
 	
-	
+	/**
+	 * Saves the content of the text entry field
+	 */
 	private void saveData()
 	{
 		String text = entryField.getText();
@@ -224,7 +243,9 @@ public class SortController extends Application
 		}
 	}
 	
-	
+	/**
+	 * Load a text file into the text entry field
+	 */
 	private void loadData()
 	{
 		try 
@@ -254,7 +275,10 @@ public class SortController extends Application
 		}
 	}
 	
-	
+	/**
+	 * Makes it work
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		Application.launch(args);
